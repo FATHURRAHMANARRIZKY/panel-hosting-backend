@@ -59,4 +59,18 @@ public class AuthController {
 
         return ResponseEntity.ok().body("Login success");
     }
+
+    @PostMapping("/logout")
+public ResponseEntity<?> logout(HttpServletResponse response) {
+    ResponseCookie cookie = ResponseCookie.from("JWT", "")
+            .httpOnly(true)
+            .path("/")
+            .maxAge(0) // hapus cookie
+            .build();
+
+    response.addHeader("Set-Cookie", cookie.toString());
+
+    return ResponseEntity.ok("Logged out successfully");
+}
+
 }
